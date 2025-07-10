@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {Link} from "react-router-dom"
 
 const Search = () => {
     const [query, setQuery] = useState('');
@@ -24,7 +25,7 @@ const Search = () => {
     }
 
     return (
-        <div className="w-full mx-auto m-28 mb-8 flex flex-col items-center gap-4">
+        <div className="w-full mx-auto m-2 mb-8 flex flex-col items-center gap-4">
             {/* <h2>Hey Buddy search for books...</h2> */}
             <div className="flex gap-4 items-center max-w-l">
                 <input
@@ -49,7 +50,7 @@ const Search = () => {
             {/* Encouraging message */}
             {!query && books.length === 0 && !loading && !error && (
                 <p className="text-center text-lg text-gray-700 mb-8 leading-relaxed max-w-2xl mx-auto">
-                    Welcome to <span className="font-semibold text-blue-600">Book Buddy</span> — your reading companion! 📚<br />
+                    Welcome to <span className="font-semibold text-amber-600"><i>Book Buddy</i></span> — your reading companion! 📚<br />
                     Whether you’re chasing dragons or decoding thrillers,<br />
                     we’ll help you find the stories you love.<br />
                     Just type in a title, author, or a word that inspires you.<br />
@@ -57,15 +58,17 @@ const Search = () => {
                 </p>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+
+            <div className= " card grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
                 {books.length > 0 && (
                     books.map((book) => {
                         const info = book.volumeInfo;
 
                         return (
-
-
-                            <div className="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center text-center hover:shadow-xl transition">
+                            
+                            
+                            <Link to = {`/book/${book.id}`} key={book.id}>
+                            <div className="bg-gray-100 rounded-2xl shadow-md p-4 flex flex-col h-[24rem] items-center text-center hover:shadow-xl cursor-pointer transition">
                                 {/* Cover Image */}
                                 {info.imageLinks?.thumbnail && (
                                     <img
@@ -110,6 +113,7 @@ const Search = () => {
                                 )}
                             </div>
 
+                </Link>
                         )
                     })
                 )}
